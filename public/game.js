@@ -51,19 +51,19 @@ document.addEventListener("DOMContentLoaded", function () {
         { valor: 12, palo: "copa" },
       ];
       
-  // Función para repartir 4 cartas al azar para el jugador y 4 para el rival
-  function repartirCartas() {
+   // Función para repartir 4 cartas al azar para el jugador y 4 para el rival
+   function repartirCartas() {
     const manoJugador = [];
     const manoRival = [];
     const cartasMezcladas = [...cartasEspanolas].sort(() => Math.random() - 0.5);
 
     // Repartir 4 cartas para el jugador
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
       manoJugador.push(cartasMezcladas.pop());
     }
 
     // Repartir 4 cartas para el rival
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
       manoRival.push(cartasMezcladas.pop());
     }
 
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Actualizar la representación visual de las cartas del rival en el HTML
   const rivalContainer = document.querySelector(".opponent");
-  manos.rival.forEach((carta, index) => {
+  manos.rival.forEach((carta) => {
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("card");
     cardDiv.innerHTML = `
