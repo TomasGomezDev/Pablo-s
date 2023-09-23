@@ -49,12 +49,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("card");
     cardDiv.innerHTML = `
-      <span class="card-value">?</span>
-      <span class="card-suit">?</span>
+      <span class="card-value">???</span>
+      <span class="card-suit"></span>
     `;
     rivalContainer.appendChild(cardDiv);
   });
-
+  // Actualizar la representación visual de las cartas del pozo de descartes
+  const pozoContainer = document.querySelector(".discardDeck");
+  manos.pozo.forEach((carta, index) => {
+    const cardDiv = document.createElement("div");
+    cardDiv.classList.add("card");
+    cardDiv.innerHTML = `
+      <span class="card-value">${carta.valor}</span>
+      <span class="card-suit">${carta.palo}</span>
+    `;
+    pozoContainer.appendChild(cardDiv);
+  });
 
 
 
@@ -88,7 +98,7 @@ puntuacionJugadorElement.textContent = `Puntuación total del jugador: ${puntaje
 puntuacionRivalElement.textContent = `Puntuación total del rival: ${puntajeTotalRival}`;
 
 addCartToHand();
-discardCardValidation(manoJug[0]);
+//discardCardValidation(manoJug[0]);
 console.log("card hold", cardHold);
 
 });
