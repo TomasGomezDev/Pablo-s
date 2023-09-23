@@ -1,6 +1,3 @@
-let puntajeTotalJugador = 0;
-let puntajeTotalRival = 0;
-
 document.addEventListener("DOMContentLoaded", function () {
 
     const cartasEspanolas = [
@@ -58,6 +55,10 @@ document.addEventListener("DOMContentLoaded", function () {
       let manoJug = [];
       let manoRival = [];
       let pozoDeDescartes = [];
+      let puntajeTotalJugador = 0;
+      let puntajeTotalRival = 0;
+      let cardHold = [];
+      let cartaDescartada = [];
 
   // Función para repartir 4 cartas al azar para el jugador y 4 para el rival
   function repartirCartas() {
@@ -115,6 +116,63 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
+
+
+// 
+
+
+
+
+// Hold card
+
+function takeCard() {
+  const cartaRobada = mazo.pop();
+  console.log("Carta robada ", cartaRobada);
+  console.log("mazo luego de robar ", mazo);
+
+  return cartaRobada
+}
+
+const cartaHoldeada = takeCard();
+console.log("Carta holdeada ", cartaHoldeada);
+cardHold = cartaHoldeada
+
+// Add card to hand
+
+ function addCartToHand(cardHold) {
+   manoJugador.push(cardHold.pop());
+   console.log("Nueva mano", manoJugador);
+ }
+
+// Discard card
+
+function discardCard(arrayDescarte) {
+    for(let i = 0; i < arrayDescarte.length; i++) {
+      pozoDeDescartes.push(arrayDescarte[i]);
+    }
+
+}
+
+function discardCardValidation(arrayDescarte){
+
+if(arrayDescarte.length === 1){
+  discardCard(arrayDescarte);
+}
+else{
+  const numeroComparacion = arrayDescarte[0].valor; // Tomamos el número de la primera carta
+
+  for (let i = 1; i < arrayDescarte.length; i++) {
+    if (arrayDescarte[i].valor !== numeroComparacion) {
+         // Si encontramos una carta con un número diferente, devolvemos addCardFunction
+    }
+  }
+
+  discardCard(arrayDescarte); // Todas las cartas tienen el mismo número
+  //addCardFunction
+}
+}
+
+
   // Funcion para sumar puntaje de mano de jugador
   function calcularPuntuacionManoJugador(manoJugador) {
     let puntuacionJugador = 0;
@@ -130,8 +188,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  //Puntos Final de Ronda
-  // Llama a la función para calcular la puntuación del jugador
+
+
+//Puntos Final de Ronda
+// Llama a la función para calcular la puntuación del jugador
 const puntuacionJugador = calcularPuntuacionManoJugador(manos.jugador);
 console.log("Puntuación del jugador:", puntuacionJugador);
 
@@ -139,9 +199,9 @@ console.log("Puntuación del jugador:", puntuacionJugador);
 const puntuacionRival = calcularPuntuacionManoJugador(manos.rival);
 console.log("Puntuación del rival:", puntuacionRival);
 
-  // Suma los puntajes de la ronda actual a los puntajes totales
-  puntajeTotalJugador += puntuacionJugador;
-  puntajeTotalRival += puntuacionRival;
+// Suma los puntajes de la ronda actual a los puntajes totales
+puntajeTotalJugador += puntuacionJugador;
+puntajeTotalRival += puntuacionRival;
 
 const puntuacionJugadorElement = document.getElementById("puntuacionJugador");
 const puntuacionRivalElement = document.getElementById("puntuacionRival");
@@ -150,10 +210,11 @@ const puntuacionRivalElement = document.getElementById("puntuacionRival");
 puntuacionJugadorElement.classList.add("puntuacion");
 puntuacionRivalElement.classList.add("puntuacion");
 
-  // Actualiza el contenido de los elementos con los puntajes totales
-  puntuacionJugadorElement.textContent = `Puntuación total del jugador: ${puntajeTotalJugador}`;
-  puntuacionRivalElement.textContent = `Puntuación total del rival: ${puntajeTotalRival}`;
-  
+// Actualiza el contenido de los elementos con los puntajes totales
+puntuacionJugadorElement.textContent = `Puntuación total del jugador: ${puntajeTotalJugador}`;
+puntuacionRivalElement.textContent = `Puntuación total del rival: ${puntajeTotalRival}`;
+
+//addCartToHand();
 });
 
 
