@@ -1,3 +1,6 @@
+let puntajeTotalJugador = 0;
+let puntajeTotalRival = 0;
+
 document.addEventListener("DOMContentLoaded", function () {
 
     const cartasEspanolas = [
@@ -51,11 +54,14 @@ document.addEventListener("DOMContentLoaded", function () {
         { valor: 12, palo: "copa" },
       ];
       
-  // Función para repartir 4 cartas al azar para el jugador y 4 para el rival
-  function repartirCartas() {
+   // Función para repartir 4 cartas al azar para el jugador y 4 para el rival
+   function repartirCartas() {
     const manoJugador = [];
     const manoRival = [];
     const cartasMezcladas = [...cartasEspanolas].sort(() => Math.random() - 0.5);
+
+
+
 
     // Repartir 4 cartas para el jugador
     for (let i = 0; i < 4; i++) {
@@ -98,26 +104,50 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     rivalContainer.appendChild(cardDiv);
   });
+
+
+  // Funcion para sumar puntaje de mano de jugador
+  function calcularPuntuacionManoJugador(manoJugador) {
+    let puntuacionJugador = 0;
+    for (const carta of manoJugador) {
+      if (carta.valor === 12 && carta.palo === "bastos") {
+        puntuacionJugador += 0; // 12 de basto suma 0 puntos
+      } else {
+        puntuacionJugador += carta.valor; // Suma el valor de la carta
+      }
+    }
+    return puntuacionJugador;
+  }
+
+
+
+  //Puntos Final de Ronda
+  // Llama a la función para calcular la puntuación del jugador
+const puntuacionJugador = calcularPuntuacionManoJugador(manos.jugador);
+console.log("Puntuación del jugador:", puntuacionJugador);
+
+// Llama a la función para calcular la puntuación del rival
+const puntuacionRival = calcularPuntuacionManoJugador(manos.rival);
+console.log("Puntuación del rival:", puntuacionRival);
+
+  // Suma los puntajes de la ronda actual a los puntajes totales
+  puntajeTotalJugador += puntuacionJugador;
+  puntajeTotalRival += puntuacionRival;
+
+const puntuacionJugadorElement = document.getElementById("puntuacionJugador");
+const puntuacionRivalElement = document.getElementById("puntuacionRival");
+
+// Selecciona los elementos HTML donde deseas mostrar los puntajes
+puntuacionJugadorElement.classList.add("puntuacion");
+puntuacionRivalElement.classList.add("puntuacion");
+
+  // Actualiza el contenido de los elementos con los puntajes totales
+  puntuacionJugadorElement.textContent = `Puntuación total del jugador: ${puntajeTotalJugador}`;
+  puntuacionRivalElement.textContent = `Puntuación total del rival: ${puntajeTotalRival}`;
+  
 });
 
 
 
 
 
-// Sumar puntaje actual
-
-function calcularPuntuacion(manoJugador) {
-  let puntuacion = 0;
-  for (const carta of manoJugador) {
-    if (carta.valor === 12 && carta.palo === "bastos") {
-      puntuacion += 0; // 12 de basto suma 0 puntos
-    } else {
-      puntuacion += carta.valor; // Suma el valor de la carta
-    }
-  }
-  return puntuacion;
-}
-
-// Llama a la función para calcular la puntuación del jugador
-const puntuacionJugador = calcularPuntuacion(manos.jugador);
-console.log("Puntuación del jugador:", puntuacionJugador);

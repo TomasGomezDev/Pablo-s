@@ -53,3 +53,28 @@ body {
     margin-bottom: 10px;
   }
   
+
+.puntuacion {
+  font-size: 18px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  color: #333; /* Color del texto */
+  margin-bottom: 10px; /* Margen inferior para separación */
+}
+
+.scoreboard {
+  background-color: red;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding: 20px;
+}
+
+.deck {
+  margin-bottom: 2rem;
+}
