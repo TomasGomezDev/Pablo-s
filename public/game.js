@@ -130,19 +130,22 @@ function takeCard() {
   console.log("Carta robada ", cartaRobada);
   console.log("mazo luego de robar ", mazo);
 
-  return cartaRobada
+  cardHold = cartaRobada;
+
+  return cartaRobada;
 }
 
 const cartaHoldeada = takeCard();
-console.log("Carta holdeada ", cartaHoldeada);
-cardHold = cartaHoldeada
+console.log("Carta holdeada ", cardHold);
 
 // Add card to hand
 
- function addCartToHand(cardHold) {
-   manoJugador.push(cardHold.pop());
-   console.log("Nueva mano", manoJugador);
- }
+ function addCartToHand() {
+   manoJug.push(cardHold);
+   cardHold = []
+   console.log("Nueva mano", manoJug);
+   console.log("card hold", cardHold);
+}
 
 // Discard card
 
@@ -155,22 +158,25 @@ function discardCard(arrayDescarte) {
 
 function discardCardValidation(arrayDescarte){
 
-if(arrayDescarte.length === 1){
-  discardCard(arrayDescarte);
-}
-else{
-  const numeroComparacion = arrayDescarte[0].valor; // Tomamos el número de la primera carta
-
-  for (let i = 1; i < arrayDescarte.length; i++) {
-    if (arrayDescarte[i].valor !== numeroComparacion) {
-         // Si encontramos una carta con un número diferente, devolvemos addCardFunction
-    }
+  if(arrayDescarte.length === 1){
+    discardCard(arrayDescarte);
+    console.log("Carta descartada ", arrayDescarte);
   }
+  else{
+    const numeroComparacion = arrayDescarte[0].valor; // Tomamos el número de la primera carta
 
-  discardCard(arrayDescarte); // Todas las cartas tienen el mismo número
-  //addCardFunction
+    for (let i = 1; i < arrayDescarte.length; i++) {
+      if (arrayDescarte[i].valor !== numeroComparacion) {
+          addCartToHand(cardHold);
+      }
+    }
+
+    discardCard(arrayDescarte);
+    addCartToHand(cardHold); // Todas las cartas tienen el mismo número
+    //addCardFunction
 }
 }
+
 
 
   // Funcion para sumar puntaje de mano de jugador
@@ -214,7 +220,10 @@ puntuacionRivalElement.classList.add("puntuacion");
 puntuacionJugadorElement.textContent = `Puntuación total del jugador: ${puntajeTotalJugador}`;
 puntuacionRivalElement.textContent = `Puntuación total del rival: ${puntajeTotalRival}`;
 
-//addCartToHand();
+addCartToHand();
+discardCardValidation(manoJug[0]);
+console.log("card hold", cardHold);
+
 });
 
 
