@@ -130,18 +130,21 @@ function takeCard() {
   console.log("Carta robada ", cartaRobada);
   console.log("mazo luego de robar ", mazo);
 
-  return cartaRobada
+  cardHold = cartaRobada;
+
+  return cartaRobada;
 }
 
 const cartaHoldeada = takeCard();
-console.log("Carta holdeada ", cartaHoldeada);
-cardHold = cartaHoldeada
+console.log("Carta holdeada ", cardHold);
 
 // Add card to hand
 
- function addCartToHand(cardHold) {
-   manoJug.push(cardHold.pop());
-  console.log("Nueva mano", manoJug);
+ function addCartToHand() {
+   manoJug.push(cardHold);
+   cardHold = []
+   console.log("Nueva mano", manoJug);
+   console.log("card hold", cardHold);
 }
 
 // Discard card
@@ -219,6 +222,8 @@ puntuacionRivalElement.textContent = `Puntuación total del rival: ${puntajeTota
 
 addCartToHand();
 discardCardValidation(manoJug[0]);
+console.log("card hold", cardHold);
+
 });
 
 
