@@ -58,12 +58,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const cartasMezcladas = [...cartasEspanolas].sort(() => Math.random() - 0.5);
 
     // Repartir 4 cartas para el jugador
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
       manoJugador.push(cartasMezcladas.pop());
     }
 
     // Repartir 4 cartas para el rival
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
       manoRival.push(cartasMezcladas.pop());
     }
 
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Actualizar la representación visual de las cartas del rival en el HTML
   const rivalContainer = document.querySelector(".opponent");
-  manos.rival.forEach((carta, index) => {
+  manos.rival.forEach((carta) => {
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("card");
     cardDiv.innerHTML = `
@@ -99,3 +99,25 @@ document.addEventListener("DOMContentLoaded", function () {
     rivalContainer.appendChild(cardDiv);
   });
 });
+
+
+
+
+
+// Sumar puntaje actual
+
+function calcularPuntuacion(manoJugador) {
+  let puntuacion = 0;
+  for (const carta of manoJugador) {
+    if (carta.valor === 12 && carta.palo === "bastos") {
+      puntuacion += 0; // 12 de basto suma 0 puntos
+    } else {
+      puntuacion += carta.valor; // Suma el valor de la carta
+    }
+  }
+  return puntuacion;
+}
+
+// Llama a la función para calcular la puntuación del jugador
+const puntuacionJugador = calcularPuntuacion(manos.jugador);
+console.log("Puntuación del jugador:", puntuacionJugador);
