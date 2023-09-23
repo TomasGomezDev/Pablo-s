@@ -53,33 +53,42 @@ document.addEventListener("DOMContentLoaded", function () {
         { valor: 11, palo: "copa" },
         { valor: 12, palo: "copa" },
       ];
-      
-   // Función para repartir 4 cartas al azar para el jugador y 4 para el rival
-   function repartirCartas() {
+
+      let mazo = [];
+      let manoJug = [];
+      let manoRival = [];
+      let pozoDeDescartes = [];
+
+  // Función para repartir 4 cartas al azar para el jugador y 4 para el rival
+  function repartirCartas() {
     const manoJugador = [];
     const manoRival = [];
     const cartasMezcladas = [...cartasEspanolas].sort(() => Math.random() - 0.5);
-
-
-
-
+    const pozoDescartes = [];
+      
     // Repartir 4 cartas para el jugador
     for (let i = 0; i < 4; i++) {
       manoJugador.push(cartasMezcladas.pop());
     }
-
     // Repartir 4 cartas para el rival
     for (let i = 0; i < 4; i++) {
       manoRival.push(cartasMezcladas.pop());
     }
-
-    return { jugador: manoJugador, rival: manoRival };
+  pozoDescartes.push(cartasMezcladas.pop());
+    
+    return { jugador: manoJugador, rival: manoRival, mazo: cartasMezcladas, pozo: pozoDescartes};
   }
 
   // Llamar a la función para repartir las cartas
   const manos = repartirCartas();
-  console.log("Mano del jugador:", manos.jugador);
-  console.log("Mano del rival:", manos.rival);
+  console.log("Mano del jugador: ", manos.jugador);
+  console.log("Mano del rival: ", manos.rival);
+  console.log("Mazo: ", manos.mazo);
+  console.log("pOzo: ", manos.pozo);
+  mazo = manos.mazo;
+  manoJug = manos.jugador;
+  manoRival = manos.rival;
+  pozoDeDescartes = manos.pozo;
 
   // Actualizar la representación visual de las cartas del jugador en el HTML
   const jugadorContainer = document.querySelector(".player");
@@ -95,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Actualizar la representación visual de las cartas del rival en el HTML
   const rivalContainer = document.querySelector(".opponent");
-  manos.rival.forEach((carta) => {
+  manos.rival.forEach((carta, index) => {
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("card");
     cardDiv.innerHTML = `
