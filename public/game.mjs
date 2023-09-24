@@ -4,28 +4,36 @@ import {
   addCartToHand,
   discardCard,
   calcularPuntuacionManoJugador,
+  handleClickOnPozo,
+  handleClickOnMazo,
 } from './gameFunctions.js';
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Declaración de variables
+  let mazo = [];
+  let manoJug = [];
+  let manoRival = [];
+  let pozoDeDescartes = [];
+  let puntajeTotalJugador = 0;
+  let puntajeTotalRival = 0;
+  let cardHold = [];
+  let cartaDescartada = [];
 
-
-      let mazo = [];
-      let manoJug = [];
-      let manoRival = [];
-      let pozoDeDescartes = [];
-      let puntajeTotalJugador = 0;
-      let puntajeTotalRival = 0;
-      let cardHold = [];
-      let cartaDescartada = [];
-
- 
+  // Función para actualizar la representación visual de las cartas en el HTML
+  function actualizarCartasEnHTML(container, cartas) {
+    cartas.forEach((carta) => {
+      const cardDiv = document.createElement("div");
+      cardDiv.classList.add("card");
+      cardDiv.innerHTML = `
+        <span class="card-value">${carta.valor}</span>
+        <span class="card-suit">${carta.palo}</span>
+      `;
+      container.appendChild(cardDiv);
+    });
+  }
 
   // Llamar a la función para repartir las cartas
   const manos = repartirCartas();
-  console.log("Mano del jugador: ", manos.jugador);
-  console.log("Mano del rival: ", manos.rival);
-  console.log("Mazo: ", manos.mazo);
-  console.log("pOzo: ", manos.pozo);
   mazo = manos.mazo;
   manoJug = manos.jugador;
   manoRival = manos.rival;
@@ -33,77 +41,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Actualizar la representación visual de las cartas del jugador en el HTML
   const jugadorContainer = document.querySelector(".player");
-  manos.jugador.forEach((carta) => {
-    const cardDiv = document.createElement("div");
-    cardDiv.classList.add("card");
-    cardDiv.innerHTML = `
-      <span class="card-value">${carta.valor}</span>
-      <span class="card-suit">${carta.palo}</span>
-    `;
-    jugadorContainer.appendChild(cardDiv);
-  });
+  actualizarCartasEnHTML(jugadorContainer, manos.jugador);
 
   // Actualizar la representación visual de las cartas del rival en el HTML
   const rivalContainer = document.querySelector(".opponent");
-  manos.rival.forEach((carta, index) => {
-    const cardDiv = document.createElement("div");
-    cardDiv.classList.add("card");
-    cardDiv.innerHTML = `
-      <span class="card-value">???</span>
-      <span class="card-suit"></span>
-    `;
-    rivalContainer.appendChild(cardDiv);
-  });
+  actualizarCartasEnHTML(rivalContainer, manos.rival);
+
   // Actualizar la representación visual de las cartas del pozo de descartes
   const pozoContainer = document.querySelector(".discardDeck");
-  manos.pozo.forEach((carta, index) => {
-    const cardDiv = document.createElement("div");
-    cardDiv.classList.add("card");
-    cardDiv.innerHTML = `
-      <span class="card-value">${carta.valor}</span>
-      <span class="card-suit">${carta.palo}</span>
-    `;
-    pozoContainer.appendChild(cardDiv);
-  });
+  actualizarCartasEnHTML(pozoContainer, manos.pozo);
 
+  // ...
 
+  // Obtener los elementos del mazo y el pozo de descartes
+  const mazoElement = document.querySelector(".mazo");
+  const pozoElement = document.querySelector(".discardDeck");
 
-// 
-
-const cartaHoldeada = takeCard();
-console.log("Carta holdeada ", cardHold);
-
-//Puntos Final de Ronda
-// Llama a la función para calcular la puntuación del jugador
-const puntuacionJugador = calcularPuntuacionManoJugador(manos.jugador);
-console.log("Puntuación del jugador:", puntuacionJugador);
-
-// Llama a la función para calcular la puntuación del rival
-const puntuacionRival = calcularPuntuacionManoJugador(manos.rival);
-console.log("Puntuación del rival:", puntuacionRival);
-
-// Suma los puntajes de la ronda actual a los puntajes totales
-puntajeTotalJugador += puntuacionJugador;
-puntajeTotalRival += puntuacionRival;
-
-const puntuacionJugadorElement = document.getElementById("puntuacionJugador");
-const puntuacionRivalElement = document.getElementById("puntuacionRival");
-
-// Selecciona los elementos HTML donde deseas mostrar los puntajes
-puntuacionJugadorElement.classList.add("puntuacion");
-puntuacionRivalElement.classList.add("puntuacion");
-
-// Actualiza el contenido de los elementos con los puntajes totales
-puntuacionJugadorElement.textContent = `Puntuación total del jugador: ${puntajeTotalJugador}`;
-puntuacionRivalElement.textContent = `Puntuación total del rival: ${puntajeTotalRival}`;
-
-addCartToHand();
-//discardCardValidation(manoJug[0]);
-console.log("card hold", cardHold);
-
+  // Agregar manejadores de eventos a los elementos del mazo y el pozo de descartes
+  mazoElement.addEventListener("click", handleClickOnMazo);
+  pozoElement.addEventListener("click", handleClickOnPozo);
 });
-
-
-
-
-
