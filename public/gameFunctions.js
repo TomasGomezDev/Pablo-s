@@ -49,7 +49,7 @@ const cartasEspanolas = [
     { valor: 12, palo: "copa" },
   ];
 
-  let mazo = [];
+      let mazo = [];
       let manoJug = [];
       let manoRival = [];
       let pozoDeDescartes = [];
@@ -64,6 +64,7 @@ const cartasEspanolas = [
     const manoRival = [];
     const cartasMezcladas = [...cartasEspanolas].sort(() => Math.random() - 0.5);
     const pozoDescartes = [];
+    mazo = cartasMezcladas;
       
     // Repartir 4 cartas para el jugador
     for (let i = 0; i < 4; i++) {
@@ -74,7 +75,6 @@ const cartasEspanolas = [
       manoRival.push(cartasMezcladas.pop());
     }
   pozoDescartes.push(cartasMezcladas.pop());
-    
     return { jugador: manoJugador, rival: manoRival, mazo: cartasMezcladas, pozo: pozoDescartes};
   }
 
@@ -89,8 +89,6 @@ function takeCard() {
   
     return cartaRobada;
   }
-
-
 // Add card to hand
 
 function addCartToHand() {
@@ -129,9 +127,6 @@ function discardCardValidation(arrayDescarte){
     //addCardFunction
 }
 }
-
-
-
   // Funcion para sumar puntaje de mano de jugador
   function calcularPuntuacionManoJugador(manoJugador) {
     let puntuacionJugador = 0;
@@ -145,6 +140,34 @@ function discardCardValidation(arrayDescarte){
     return puntuacionJugador;
   }
 
+// Función para manejar el clic en el mazo
+function handleClickOnMazo() {
+  // Verificar si el mazo está vacío
+  if (mazo.length === 0) {
+    alert("El mazo está vacío.");
+    return;
+  }
+
+  // Tomar una carta del mazo
+  const cartaTomada = takeCard();
+
+  // Mostrar la carta al jugador en una ventana emergente
+  const decision = prompt(`Has tomado la siguiente carta del mazo:\nValor: ${cartaTomada.valor}\nPalo: ${cartaTomada.palo}\n\n¿Quieres quedarte con esta carta? (Sí/No)`);
+
+  // Verificar la decisión del jugador
+  if (decision && decision.toLowerCase() === "si") {
+    // El jugador quiere quedarse con la carta
+    addCartToHand();
+  } else {
+    // El jugador descarta la carta
+    discardCard([cartaTomada]);
+  }
+}
+
+ function handleClickOnPozo() {
+  console.log("handleClickOnpozo");
+  console.log(pozoDeDescartes) 
+ }
 
 
   export {
@@ -153,4 +176,7 @@ function discardCardValidation(arrayDescarte){
     addCartToHand,
     discardCard,
     calcularPuntuacionManoJugador,
+    handleClickOnPozo,
+    handleClickOnMazo
+
   };

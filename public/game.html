@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Juego "Pablo" - Comienzo del Juego</title>
   <link rel="stylesheet" href="game.css">
+  <script type="module" src="game.mjs" defer></script>
+  <script type="module" src="gameFunctions.js" defer></script>
 </head>
 <body>
   <h1>PABLO 1 JUGADOR</h1>
@@ -17,11 +19,11 @@
     <div class="deck">
       <h2>Mazo</h2>
       <!-- Carta boca arriba del mazo -->
-      <div class="card face-up">
+      <div class="card face-down mazo">
         <span class="card-value"></span>
         <span class="card-suit"></span>
       </div>
-      <div class="card discardDeck">
+      <div class="card discardDeck" >
         <span class="card-value"></span>
         <span class="card-suit"></span>
       </div>
@@ -36,6 +38,6 @@
       <!-- Representación de las cartas del rival -->
     </div>
   </div>
-  <script type="module" src="game.mjs"></script>
+
 </body>
 </html>
