@@ -78,3 +78,7 @@ body {
 .deck {
   margin-bottom: 2rem;
 }
+
+.card.seleccionada {
+  box-shadow: 0 0 10px 5px rgba(0, 153, 204, 0.5); /* Borde difuminado azul claro */
+}

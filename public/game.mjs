@@ -1,41 +1,23 @@
 import {
   repartirCartas,
-  takeCard,
-  addCartToHand,
-  discardCard,
-  calcularPuntuacionManoJugador,
+  /*takeCard,-addCartToHand,-discardCard,-calcularPuntuacionManoJugador,*/
   handleClickOnPozo,
   handleClickOnMazo,
+  actualizarCartasEnHTML
 } from './gameFunctions.js';
 
-document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function () {
   // Declaración de variables
   let mazo = [];
-  let manoJug = [];
+  let nuevaCartaJugador = [];
   let manoRival = [];
   let pozoDeDescartes = [];
-  let puntajeTotalJugador = 0;
-  let puntajeTotalRival = 0;
-  let cardHold = [];
-  let cartaDescartada = [];
-
-  // Función para actualizar la representación visual de las cartas en el HTML
-  function actualizarCartasEnHTML(container, cartas) {
-    cartas.forEach((carta) => {
-      const cardDiv = document.createElement("div");
-      cardDiv.classList.add("card");
-      cardDiv.innerHTML = `
-        <span class="card-value">${carta.valor}</span>
-        <span class="card-suit">${carta.palo}</span>
-      `;
-      container.appendChild(cardDiv);
-    });
-  }
-
+  /*let puntajeTotalJugador = 0; - let puntajeTotalRival = 0; - let cardHold = []; - let cartaDescartada = [];    */
+  
   // Llamar a la función para repartir las cartas
   const manos = repartirCartas();
   mazo = manos.mazo;
-  manoJug = manos.jugador;
+  nuevaCartaJugador = manos.jugador;
   manoRival = manos.rival;
   pozoDeDescartes = manos.pozo;
 
@@ -50,8 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Actualizar la representación visual de las cartas del pozo de descartes
   const pozoContainer = document.querySelector(".discardDeck");
   actualizarCartasEnHTML(pozoContainer, manos.pozo);
-
-  // ...
 
   // Obtener los elementos del mazo y el pozo de descartes
   const mazoElement = document.querySelector(".mazo");
